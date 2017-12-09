@@ -2,17 +2,15 @@ package parser.models;
 
 public class Field {
 
-    private String name;
-    private String entityField;
-    private String type;
+    private String name = "";
+    private String entityField = "";
 
     public Field() {
     }
 
-    public Field(String name, String entityField, String type) {
+    public Field(String name, String entityField) {
         this.name = name;
         this.entityField = entityField;
-        this.type = type;
     }
 
     public String getName() {
@@ -21,14 +19,6 @@ public class Field {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getEntityField() {
@@ -44,7 +34,6 @@ public class Field {
         return "Field{" +
                 "name='" + name + '\'' +
                 ", entityField='" + entityField + '\'' +
-                ", type='" + type + '\'' +
                 '}';
     }
 

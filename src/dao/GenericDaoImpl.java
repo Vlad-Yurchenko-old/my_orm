@@ -1,11 +1,11 @@
 package dao;
 
-import dao.invoke.Invoker;
 import dao.invoke.InvokerFactory;
 import domain.BaseEntity;
 import parser.Parser;
 import parser.models.Database;
 import parser.models.Field;
+import parser.models.ForeignKey;
 import parser.models.Table;
 
 import java.io.File;
@@ -71,6 +71,18 @@ public class GenericDaoImpl<T extends BaseEntity> implements Dao<T> {
                     }
                 }
                 /*
+                * Устанавливаем внешние ключи
+                * */
+                for (ForeignKey fk : table.getFKs()) {
+                    String setMethodName = getSetMethodByName(fk.getField().getEntityField());
+                    for (Method method : methods) {
+                        if (method.getName().compareTo(setMethodName) == 0) {
+                            InvokerFactory.getInvoker(method.getParameterTypes()[0]).invoke(method, entity, r, fk.getField().getName());
+                            break;
+                        }
+                    }
+                }
+                /*
                 * Устанавливаем id
                 * */
                 for (Method method : methods) {
@@ -99,9 +111,6 @@ public class GenericDaoImpl<T extends BaseEntity> implements Dao<T> {
 
     @Override
     public int create(T entity) {
-        /*
-        * Генерация SQL запроса
-        * */
         StringBuilder sqlBuilder = new StringBuilder("INSERT INTO " + table.getName() + "(");
         for (Field field : table.getFields()) {
             sqlBuilder.append(field.getName() + ",");

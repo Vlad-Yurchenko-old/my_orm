@@ -5,16 +5,17 @@
 <database name="myorm" user="root" pass="root" url="jdbc:mysql://localhost/myorm" driver="com.mysql.jdbc.Driver">
 
     <table name="books" primary-key="id" entity_name="Book">
-        <field name="id" entity_field="id" type="int"/>
-        <field name="name" entity_field="name" type="string"/>
-        <field name="year" entity_field="year" type="int"/>
+        <field name="id"/>
+        <field name="name"/>
+        <field name="year"/>
+        <field name="author_id" entity_field="authorId" foreign-key-entity="authors"/>
     </table>
 
     <table name="authors" primary-key="id" entity_name="Author">
-        <field name="id" entity_field="id" type="int"/>
-        <field name="name" entity_field="name" type="string"/>
-        <field name="surname" entity_field="surName" type="string"/>
-        <field name="year" entity_field="year" type="int"/>
+        <field name="id"/>
+        <field name="name"/>
+        <field name="surname" entity_field="surName"/>
+        <field name="year"/>
     </table>
 
 </database>

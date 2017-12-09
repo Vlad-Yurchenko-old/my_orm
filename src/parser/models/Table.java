@@ -7,6 +7,7 @@ public class Table {
     private String name;
     private String entityName;
     private Field PK;
+    private ArrayList<ForeignKey> FKs;
     private ArrayList<Field> fields;
 
     public Table() {
@@ -14,12 +15,14 @@ public class Table {
         entityName = "";
         PK = null;
         fields = new ArrayList<>();
+        FKs = new ArrayList<>();
     }
 
-    public Table(String name, String entityName, Field PK, ArrayList<Field> fields) {
+    public Table(String name, String entityName, Field PK, ArrayList<ForeignKey> FKs, ArrayList<Field> fields) {
         this.name = name;
         this.entityName = entityName;
         this.PK = PK;
+        this.FKs = FKs;
         this.fields = fields;
     }
 
@@ -29,6 +32,14 @@ public class Table {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public ArrayList<ForeignKey> getFKs() {
+        return FKs;
+    }
+
+    public void setFKs(ArrayList<ForeignKey> FKs) {
+        this.FKs = FKs;
     }
 
     public Field getPK() {
@@ -47,6 +58,10 @@ public class Table {
         fields.add(field);
     }
 
+    public void addFK(ForeignKey fk){
+        FKs.add(fk);
+    }
+
     public String getEntityName() {
         return entityName;
     }
@@ -61,8 +76,8 @@ public class Table {
                 "name='" + name + '\'' +
                 ", entityName='" + entityName + '\'' +
                 ", PK=" + PK +
+                ", FKs=" + FKs +
                 ", fields=" + fields +
                 '}';
     }
-
 }

@@ -4,6 +4,7 @@ import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 import parser.models.Database;
 import parser.models.Field;
+import parser.models.ForeignKey;
 import parser.models.Table;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -72,20 +73,35 @@ public class Parser {
                                 case "entity_field":
                                     field.setEntityField(properties.item(k).getTextContent());
                                     break;
-                                case "type":
-                                    field.setType(properties.item(k).getTextContent());
-                                    break;
                             }
                         }
+
                         /*
-                        * Если текущее рассматриваемое поля является идентификатором,
-                        * то устанавливаем идентификатор для таблицы,
-                        * иначе добавляем в множество fields
+                        * Если не указано поле entity_field устанавливаем его в значение field
                         * */
-                        if (field.getName().compareTo(tableElement.getAttribute("primary-key")) == 0) {
-                            table.setPK(field);
+                        if (field.getEntityField().compareTo("") == 0) {
+                            field.setEntityField(properties.getNamedItem("name").getTextContent());
+                        }
+
+                        /*
+                        * Проверяем, является ли текущее поле внешним ключом
+                        * */
+                        if(properties.getNamedItem("foreign-key-entity") != null){
+                            ForeignKey fk = new ForeignKey();
+                            fk.setField(field);
+                            fk.setFkEntityName(properties.getNamedItem("foreign-key-entity").getTextContent());
+                            table.addFK(fk);
                         } else {
-                            table.addField(field);
+                            /*
+                            * Если текущее рассматриваемое поля является идентификатором,
+                            * то устанавливаем идентификатор для таблицы,
+                            * иначе добавляем в множество fields
+                            * */
+                            if (field.getName().compareTo(tableElement.getAttribute("primary-key")) == 0) {
+                                table.setPK(field);
+                            } else {
+                                table.addField(field);
+                            }
                         }
                     }
                 }
