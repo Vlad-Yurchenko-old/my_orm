@@ -1,8 +1,11 @@
 package domain;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.StringJoiner;
 
-public class BaseEntity<T extends Object>{
+public class BaseEntity<T extends Object> {
 
     private T id;
 
@@ -17,18 +20,16 @@ public class BaseEntity<T extends Object>{
     @Override
     public String toString() {
         Class entity = this.getClass();
-        String str = entity.getName() + "{id = " + id + ", ";
-        Field[] fields = entity.getDeclaredFields();
-        for (int i = 0; i < fields.length; i++) {
+        StringJoiner stringJoiner = new StringJoiner(", ", entity.getSimpleName() + "(", ")");
+        Arrays.stream(entity.getDeclaredFields()).forEach(field -> {
             try {
-                fields[i].setAccessible(true);
-                str += fields[i].getName() + " = " + fields[i].get(this);
-                if (i != fields.length - 1) str += ", ";
+                field.setAccessible(true);
+                stringJoiner.add(field.get(this).toString());
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
-        }
-        str += "}";
-        return str;
+        });
+        return stringJoiner.toString();
     }
+
 }

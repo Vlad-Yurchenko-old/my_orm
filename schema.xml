@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--field name="author_id" type="int" foreign-key="authors"/>
+<field name="author" type="authors"/>-->
+<database name="myorm" user="root" pass="root" url="jdbc:mysql://localhost/myorm" driver="com.mysql.jdbc.Driver">
+
+    <table name="books" primary-key="id" entity_name="Book">
+        <field name="id"/>
+        <field name="name"/>
+        <field name="year"/>
+        <field name="author_id" entity_field="authorId" foreign-key-entity="authors"/>
+    </table>
+
+    <table name="authors" primary-key="id" entity_name="Author">
+        <field name="id"/>
+        <field name="name"/>
+        <field name="surname" entity_field="surName"/>
+        <field name="year"/>
+    </table>
+
+</database>

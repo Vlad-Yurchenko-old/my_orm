@@ -1,20 +1,32 @@
+import dao.Connector;
 import dao.GenericDaoImpl;
 import dao.condition.type.ConditionCompare;
 import dao.condition.type.ConditionWHERE;
 import domain.Author;
 import domain.Book;
 
+import java.sql.SQLException;
+
 public class Main {
 
-    public static void main(String[] args) {
-        GenericDaoImpl<Book> bookDao = new GenericDaoImpl<>(Book.class);
-        System.out.println(bookDao.readAll());
-        System.out.println(bookDao.read(1));
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+          Class.forName("database.initialize.Initializr");
+
+//        Connector.init("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/myorm", "root", "root");
+//        boolean result = Connector.getConnection().createStatement().execute("create table test(id int, name varchar(25))");
+
+//        System.out.println(result);
 
 
-        GenericDaoImpl<Author> authorDao = new GenericDaoImpl<>(Author.class);
-        System.out.println(authorDao.readAll());
-        System.out.println(authorDao.read(1));
+//        GenericDaoImpl<Book> bookDao = new GenericDaoImpl<>(Book.class);
+//        System.out.println(bookDao.readAll());
+//        System.out.println(bookDao.read(1));
+//
+//
+//        GenericDaoImpl<Author> authorDao = new GenericDaoImpl<>(Author.class);
+//        System.out.println(authorDao.readAll());
+//        System.out.println(authorDao.read(1));
+
 
 
         /*
