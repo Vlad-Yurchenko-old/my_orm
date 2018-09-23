@@ -11,6 +11,11 @@ public class DBField {
     private String name = "";
 
     /**
+     * Название свойства класса сущности
+     * */
+    private String entityField = "";
+
+    /**
      * Тип поля
      * {@value = {VARCHAR, CHAR, INT, DECIMAL, BINARY}}
      */
@@ -96,6 +101,14 @@ public class DBField {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEntityField() {
+        return entityField;
+    }
+
+    public void setEntityField(String entityField) {
+        this.entityField = entityField;
     }
 
     public DB_TYPE getType() {

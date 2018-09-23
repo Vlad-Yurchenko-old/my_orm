@@ -1,4 +1,4 @@
-package annotation.processing;
+package schema.loader.annotation;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.RoundEnvironment;

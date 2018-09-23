@@ -14,6 +14,11 @@ public class DBTable {
     private String name;
 
     /**
+     * Название сущности БД
+     * */
+    private String entityName;
+
+    /**
      * Поля таблицы
      */
     private ArrayList<DBField> fields;
@@ -25,11 +30,19 @@ public class DBTable {
 
     public DBTable(String name) {
         this.name = name;
+        this.entityName = name;
         fields = new ArrayList<>();
     }
 
-    public DBTable(String name, ArrayList<DBField> fields) {
+    public DBTable(String name, String entityName) {
         this.name = name;
+        this.entityName = entityName;
+        fields = new ArrayList<>();
+    }
+
+    public DBTable(String name, String entityName, ArrayList<DBField> fields) {
+        this.name = name;
+        this.entityName = entityName;
         this.fields = fields;
     }
 
@@ -39,6 +52,14 @@ public class DBTable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEntityName() {
+        return entityName;
+    }
+
+    public void setEntityName(String entityName) {
+        this.entityName = entityName;
     }
 
     /**

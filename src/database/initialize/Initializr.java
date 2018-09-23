@@ -39,7 +39,7 @@ public class Initializr {
 
         Connection connection;
         try {
-//            database = new Parser(new File("schema.xml")).parse();
+//            database = new XMLSchemaLoader(new File("schema.xml")).parse();
             Connector.init(database.getDriver(), database.getUrl(), database.getUserName(), database.getUserPass());
             connection = Connector.getConnection();
         } catch (Exception e) {

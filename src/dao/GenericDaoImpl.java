@@ -2,11 +2,8 @@ package dao;
 
 import dao.invoke.InvokerFactory;
 import domain.BaseEntity;
-import parser.Parser;
-import parser.models.Database;
-import parser.models.Field;
-import parser.models.ForeignKey;
-import parser.models.Table;
+import schema.loader.xml.*;
+import schema.loader.xml.models.xml.Database;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -18,7 +15,7 @@ public class GenericDaoImpl<T extends BaseEntity> implements Dao<T> {
     static {
         Database database = null;
         try {
-            database = new Parser(new File("library_bd.xml")).parse();
+            database = new XMLSchemaLoader(new File("library_bd.xml")).parse();
         } catch (Exception e) {
             e.printStackTrace();
         }
