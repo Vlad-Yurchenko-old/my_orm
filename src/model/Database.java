@@ -93,6 +93,12 @@ public class Database {
         this.tables = dbTables;
     }
 
+
+    public DBTable getTable(String tableName) {
+        return tables.stream().filter(dbTable -> dbTable.getName().equals(tableName)).findFirst().orElse(null);
+    }
+
+
     @Override
     public String toString() {
         return "Database{" +

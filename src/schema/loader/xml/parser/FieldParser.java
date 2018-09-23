@@ -1,6 +1,7 @@
 package schema.loader.xml.parser;
 
 import model.DBField;
+import model.DBTable;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 
@@ -21,7 +22,7 @@ public class FieldParser implements Parser<DBField> {
                     field.setEntityField(properties.item(k).getTextContent());
                     break;
                 case "foreign-key-entity":
-
+                    field.setFK(new DBField.FKConstraint(new DBTable(properties.item(k).getTextContent()), null));
                     break;
                 case "primary-key":
                     field.setPK(true);
@@ -40,8 +41,6 @@ public class FieldParser implements Parser<DBField> {
         if (field.getEntityField().equals("")) {
             field.setEntityField(properties.getNamedItem("name").getTextContent());
         }
-
-        //TODO: додумать создание внешних ключей
 
         return field;
     }
